@@ -11,6 +11,9 @@ import pandas as pd
 import os
 from pathlib import Path
 import xgboost as xgb
+import io
+import csv
+
 try:
     model = pickle.load(open("model.pkl", 'rb'))
     print("** model downloaded **")
@@ -29,17 +32,21 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        file = request.form['file']
-        data = pd.read_csv(file)
-        submission = pd.read_csv(file)
+        data_folder = Path("static/csv/")
+        file = request.files.get('file')
+        file_path = os.path.join(data_folder, file.filename)
+        file.save(file_path)
+
+        data = pd.read_csv(file_path)
+        submission = pd.read_csv(file_path)
         data = util.convert_dates(data)
         data = pd.get_dummies(data, columns=["storeId"])
         predictions = model.predict(data)
         submission['sales']= predictions
-        data_folder = Path("static/csv/")
         file_to_open = data_folder / "predicted-sales.csv"
         submission.to_csv(file_to_open,index=False)
         df = pd.read_csv(file_to_open)
+        os.remove(file_path)
         return render_template('result.html', path_to_file = file_to_open, path_to_graph = graphutil.graphForPredictedMonths(df))
 
 @app.route('/getCsv') # this is a job for GET, not POST
