@@ -13,7 +13,6 @@ import seaborn as sns
 # Any results you write to the current directory are saved as output.
 
 import pandas as pd
-import xgboost as xgb
 from sklearn.model_selection import train_test_split
 import util as util
 import pickle
