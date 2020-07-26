@@ -41,6 +41,6 @@ xbr.fit(x_train, y_train)
 #              reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=None,
 #              silent=None, subsample=0.3, verbosity=0)
 
-filename = 'model.pkl'
+filename = 'xgb_reg.pkl'
 
 pickle.dump(xbr, open(filename, 'wb'))

@@ -14,7 +14,7 @@ import io
 import csv
 
 
-model = pickle.load(open("model.pkl", 'rb'))
+model = pickle.load(open("xgb_reg.pkl", 'rb'))
 print("** model downloaded **")
 app = Flask(__name__)
 
