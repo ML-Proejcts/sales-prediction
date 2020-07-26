@@ -13,7 +13,7 @@ from pathlib import Path
 import xgboost as xgb
 
 model = pickle.load(open("model.pkl", 'rb'))
-
+print("model downloaded")
 app = Flask(__name__)
 
 @app.route('/')
