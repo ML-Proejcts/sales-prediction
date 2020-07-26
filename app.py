@@ -11,14 +11,18 @@ import pandas as pd
 import os
 from pathlib import Path
 import xgboost as xgb
+try:
+    model = pickle.load(open("model.pkl", 'rb'))
+    print("** model downloaded **")
+    app = Flask(__name__)
+except Exception as e:
+        print('****************** Error occured ****************')
+        print(e)
 
-model = pickle.load(open("model.pkl", 'rb'))
-print("** model downloaded **")
-app = Flask(__name__)
 
 @app.route('/')
 def home():
-    graphutil.graphForMonths()
+    # graphutil.graphForMonths()
     # graphutil.graphForStores()
     return render_template('index.html', linePlotPath="\static\images\graph_month.png", samplePath="\static\images\graph_store.PNG")
     
