@@ -23,7 +23,7 @@ app = Flask(__name__)
 def home():
     graphutil.graphForMonths()
     graphutil.graphForStores()
-    return render_template('index.html', linePlotPath="\static\images\graph_month.png", samplePath="\static\images\graph_store.PNG")
+    return render_template('index.html', linePlotPath="\static\images\graph_month.png", samplePath="\static\images\graph_store.png")
     
 @app.route('/predict', methods=['POST'])
 def predict():
